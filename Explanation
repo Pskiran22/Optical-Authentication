@@ -1,0 +1,135 @@
+Abbreviations
+FFT : Fast Fourier Transform
+OpenCv : Open Source Computer Version
+
+
+List of Figures :
+Figure 1 : Random Image of Pixels – (225,225)
+Figure 2 : Random Image of Pixels – (703,1249)
+Figure 3 : Output Displaying The Image That Should Undergo this process
+Figure 4 : Output Displaying Encrypted Image
+Figure 5 : Output Displaying Decrypted image
+
+Introduction
+The encryption and decryption process demonstrates the image security using
+matrix multiplication as a secret key. This method leverages linear algebra and
+Fourier transformation to encode and decode digital images, ensuring their
+confidentiality and integrity.
+The process begins by loading an input image and determining its dimensions and
+the total number of pixels. Two random matrices are generated with the same
+dimensions as the input image, and these are multiplied to produce a unique secret
+key, which serves as the cornerstone of the encryption and decryption process.
+The encryption phase involves applying a Fourier transform to the input image and
+then multiplying it by the secret key. This step effectively obscures the original
+image, rendering it unreadable without the corresponding decryption key. The
+resulting encrypted image is then ready for secure transmission or storage.
+Decryption is the process of reversing the encryption to reconstruct the original
+image. This is achieved by dividing the encrypted image by the complex conjugate
+of the secret key and performing an inverse Fourier transform. The reconstructed
+image is a faithful representation of the original, demonstrating the effectiveness of
+the encryption and decryption process.
+The code utilizes the OpenCV library for image processing, NumPy for numerical
+computations, and Matplotlib for visualization. The visual representation of the
+original image, encrypted image, and decrypted image provides a clear illustration
+of the encryption and decryption process, making it accessible and understandable
+for others.
+This encryption and decryption technique can be invaluable for safeguarding
+sensitive image data, such as medical images, confidential documents, or personal
+photographs. By employing mathematical operations and signal processing
+techniques, this method offers a practical and effective means of securing digital
+images against unauthorized access or tampering.
+In conclusion, the encryption and decryption process showcased in the code snippet
+exemplifies a robust and versatile approach to image security, demonstrating the
+power of mathematical concepts and computational tools in ensuring data privacy
+and integrity.
+9
+Methodology
+Rules:
+1. Validate input parameters, similar as filenames, to insure they live and are of the
+correct type before pacing with the main operations
+2.induce a secure and arbitrary key for encryption. In the law, two arbitrary matrices
+are multiplied to produce a secret key. insure that the key has the same confines as
+the input image
+3. Before enforcing encryption, understand how digital images are represented.
+Grasp generalities like pixel values, color channels, and image confines.
+Phase 1: Preprocessing and Initialization Phase
+In this original stage, generally appertained to as the preface and Initialization Phase,
+the primary thing is to establish a foundational understanding of the image data and
+to take over essential preprocessing way. This phase sets the root for the posterior
+encryption and decryption processes.
+• Understanding Image Data
+Before any manipulation, it's imperative to comprehend the nature of digital
+image data. The law initiates this phase by importing necessary libraries and loading
+the input image using OpenCV. latterly, crucial criteria similar as image confines(
+height and range) and the total number of pixels are reckoned.
+inputImage = cv2.imread(input_filename, 0)
+height, width = inputImage.shape[:2]
+pixels = height * width
+• Preprocessing Steps
+10
+Part of the root involves preprocessing the image data. In the handed law, the
+image is converted to grayscale, streamlining posterior operations. These
+preprocessing way insure thickness in confines and pixel values.
+random_matrix_1 = np.random.rand(height, width)
+random_matrix_2 = np.random.rand(height, width)
+• Secret Key Generation
+Randomness is a crucial element in the encryption process. In this phase, two
+arbitrary matrices are generated using NumPy, mirroring the confines of the image.
+These matrices lay the foundation for creating the secret key, a pivotal element in the
+encryption process.
+secretKey = random_matrix_1 * random_matrix_2
+Phase 2 : Encryption Process: Transforming in the Frequency Domain
+The alternate phase, aptly named the Encryption Process Transforming in the
+frequence sphere, is a critical step in the perpetration of image encryption. This
+phase primarily involves exercising the Fast Fourier Transform( FFT) to transition
+the image from the spatial sphere to the frequence sphere. The posterior addition of
+the converted image with the secret key introduces a subcaste of security through
+fine operations.
+• Fast Fourier Transform( FFT)
+The core of the encryption process lies in the operation of FFT to the input image.
+FFT, a fine fashion, is employed to convert the image from its original spatial
+11
+representation into the frequence sphere. This metamorphosis reveals the frequence
+factors essential in the image, a crucial aspect in the encryption process.
+fourierTransform = np.fft.fft2(inputImage)
+encryptedImage = fourierTransform * secretKey
+• Visualizing Encryption:
+To gain insights into the effects of encryption, the code includes a visualization
+step. The encrypted image, represented in the frequency domain, is displayed using
+a logarithmic scale of its absolute values. This visualization aids in understanding
+the alterations introduced during the encryption process.
+axs[1].imshow(np.log(1 + np.abs(encryptedImage)), cmap='gray')
+axs[1].set_title('Encrypted Image')
+• Frequency sphere Encryption
+The addition of the FFT- converted image with the secret key is a pivotal
+cryptographic step. This operation introduces complexity and randomness,
+contributing to the security of the encryption process
+Phase 3 : Decryption and Reconstruction :
+The third phase, chased as the Decryption and Reconstruction Phase, marks the final
+way in the trip of image metamorphosis. This vital phase focuses on reversing the
+encryption process, unveiling the original image from its translated state. The
+decryption involves careful fine operations, including the division by the complex
+conjugate of the secret key, followed by the inverse FFT to restore the image to the
+spatial sphere.
+• Decryption Process
+The decryption process commences with the division of the translated image by
+the complex conjugate of the secret key. This step is pivotal to recover the original
+information decoded during encryption.
+12
+decryptedImage = encryptedImage / np.conj(secretKey)
+• Inverse Fast Fourier Transform( IFFT)
+To bring the image back to the spatial sphere, the law employs the Inverse Fast
+Fourier Transform( IFFT). This operation is the reverse of the FFT applied during
+encryption, converting the image from the frequence sphere back to its original spatial
+representation.
+reconstructedImage = np.fft.ifft2(decryptedImage)
+• Imaging Decryption
+Analogous to the encryption phase, the law includes a visualization step for the
+deciphered image. This allows for a direct comparison between the original and
+repaired images.
+axs[2].imshow(np.abs(reconstructedImage), cmap='gray')
+axs[2].set_title('Decrypted Image')
+• Displaying the Secret Key
+plt.subplots_adjust(bottom=0.1)
+plt.text(0.5, 0.05, f'Secret Key: Multiplied Random Matrices', ha='center',
+va='center', fontsize=10, color='red', transform=fig.transFigure
