@@ -1,34 +1,12 @@
-# OptAuth
-**Novel Python image encryption: OpenCV processes a grayscale image, generating a secret key from random matrices. Encryption uses **FFT** and multiplication, showcasing complexity. Decryption reconstructs the original image, ensuring secure transmission and storage.**
+Advanced Python Image Encryption Using OpenCV and FFT
 
+This image encryption and decryption technique, developed in Python, presents an innovative method for securing grayscale images during transmission and storage. Utilizing the OpenCV library for image handling, the approach begins by importing a grayscale image from a file and determining its height and width to establish its matrix structure.
 
+A core feature of the method is the creation of a secret key formed through the element-wise multiplication of two randomly generated matrices that share the same dimensions as the image. These random matrices introduce unpredictability, reinforcing the security of the encryption process.
 
-In this image encryption and decryption process using Python, a novel approach is
-employed to enhance the security of transmitted images. The algorithm leverages
-the inherent characteristics of image matrices, introducing a secret key derived from
-the element-wise multiplication of two random matrices. The method utilizes the
-OpenCV library for image processing, employing a grayscale image loaded from a
-file as the input.
-The image's dimensions are extracted, providing insights into its structure with
-height and width details. Subsequently, two random matrices are generated with the
-same dimensions as the image, serving as the basis for the secret key. The secrecy of
-the key lies in the unpredictability of the random matrices, adding an extra layer of
-protection to the encryption process.
-The encryption phase involves applying the Fast Fourier Transform (FFT) to the
-input image, followed by element-wise multiplication with the secret key. The
-resulting encrypted image is visually presented, showcasing the complexity
-introduced by the encryption process, visible through a logarithmic transformation
-of the absolute values.
-To retrieve the original image, a decryption process is implemented. The encrypted
-image undergoes division by the complex conjugate of the secret key, followed by an
-inverse FFT to reconstruct the decrypted image. The final output demonstrates the
-successful recovery of the original image, highlighting the effectiveness of the
-encryption and decryption methodology.
-This approach offers a unique perspective on image security, combining random
-matrix generation and FFT techniques to safeguard sensitive visual information. The
-visual representation of the encryption and decryption stages, along with the display
-of the secret key, contributes to a comprehensive understanding of the proposed
-image security technique. The encrypted image's complexity and the successful
-reconstruction of the original image underscore the potential applications of this
-method in secure image transmission and storage.
+The encryption stage employs the Fast Fourier Transform (FFT) to convert the image data into the frequency domain. The transformed image is then encrypted by multiplying it element-wise with the secret key. To visualize the result, a logarithmic scale is applied to the absolute values of the encrypted matrix, emphasizing the complexity and distortion added by the encryption.
+
+Decryption reverses this process: the encrypted image is divided by the complex conjugate of the secret key, and then the Inverse FFT is applied to retrieve the original image. The successful restoration of the image verifies the robustness of the algorithm.
+
+This technique stands out due to its use of random matrix-based key generation combined with FFT, offering a strong layer of protection against unauthorized access. The encrypted image's complexity, along with the clear restoration of the original, showcases the method's practicality in secure image communication systems. Visual outputs of both the encryption and decryption phases, along with the generated secret key, help illustrate the effectiveness of this approach in protecting sensitive image data.
 
